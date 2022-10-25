@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BackupSystemWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackupSystemWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BackupSystemWebApplication.class, args);
+    }
 
 }
