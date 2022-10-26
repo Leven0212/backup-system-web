@@ -1,2 +1,14 @@
 server:
   port: 9090
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    cache: false
+    static-path-pattern: /static/**
+    static-locations: classpath:/static/
