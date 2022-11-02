@@ -242,7 +242,7 @@ a:hover {
     /* background-color: red; */
 }
 
-.content-area .content-area-inner, .image-container .content-area-inner {
+.content-area .content-area-inner2, .image-container .content-area-inner1 {
     position: relative;
     left: 0;
 
@@ -251,21 +251,21 @@ a:hover {
     overflow-x: hidden;
 }
 
-.content-area .content-area-inner section, .image-container .content-area-inner section{
+.content-area .content-area-inner2 section, .image-container .content-area-inner1 section{
     max-width: 520px;
     margin: 0 auto 18vh auto;
 }
 
-.content-area .content-area-inner section:last-child, .image-container .content-area-inner section:last-child{
+.content-area .content-area-inner2 section:last-child, .image-container .content-area-inner1 section:last-child{
     margin-bottom: 10vh;
 }
 
-.content-area .content-area-inner section h3.headline, .image-container .content-area-inner section h3.headline {
+.content-area .content-area-inner2 section h3.headline, .image-container .content-area-inner1 section h3.headline {
     margin-bottom: 1.2em;
 }
 
 @media (max-width:1200px) {
-    .content-area .content-area-inner {
+    .content-area .content-area-inner2 {
         left: 0;
 
         width: 100%;
@@ -277,11 +277,11 @@ a:hover {
 /** 5. Content Area --> Contact
 *******************************************************************/
 
-#contact #contact-form {
+#contact1 #contact-form1, #contact2 #contact-form2 {
     position: relative;
 }
 
-#contact #contact-form .fhp-input {
+#contact1 #contact-form1 .fhp-input, #contact2 #contact-form2 .fhp-input {
     display: none;
 
     pointer-events: none;
@@ -289,9 +289,15 @@ a:hover {
     opacity: 0;
 }
 
-#contact #contact-form input,
-#contact #contact-form textarea,
-#contact #contact-form button {
+#contact1 #contact-form1 input,
+#contact1 #contact-form1 textarea,
+#contact1 #contact-form1 button,
+/*#contact1 #contact-form1 select,*/
+#contact2 #contact-form2 input,
+#contact2 #contact-form2 textarea,
+#contact2 #contact-form2 button
+/*#contact2 #contact-form2 select*/
+{
     font-size: 2rem;
 
     margin-bottom: 3.4vh;
@@ -309,9 +315,12 @@ a:hover {
     box-shadow: none !important;
 }
 
-#contact #contact-form.success input,
-#contact #contact-form.success textarea,
-#contact #contact-form.success button {
+#contact1 #contact-form1.success input,
+#contact1 #contact-form1.success textarea,
+#contact1 #contact-form1.success button,
+#contact2 #contact-form2.success input,
+#contact2 #contact-form2.success textarea,
+#contact2 #contact-form2.success button{
     line-height: 0;
 
     height: 0;
@@ -321,27 +330,36 @@ a:hover {
     opacity: 0;
 }
 
-#contact #contact-form input::-webkit-input-placeholder,
-#contact #contact-form textarea::-webkit-input-placeholder {
+#contact1 #contact-form1 input::-webkit-input-placeholder,
+#contact1 #contact-form1 textarea::-webkit-input-placeholder,
+#contact2 #contact-form2 input::-webkit-input-placeholder,
+#contact2 #contact-form2 textarea::-webkit-input-placeholder{
     color: #fff;
 }
 
-#contact #contact-form input:-ms-input-placeholder,
-#contact #contact-form textarea:-ms-input-placeholder {
+#contact1 #contact-form1 input:-ms-input-placeholder,
+#contact1 #contact-form1 textarea:-ms-input-placeholder,
+#contact2 #contact-form2 input:-ms-input-placeholder,
+#contact2 #contact-form2 textarea:-ms-input-placeholder{
     color: #fff;
 }
 
-#contact #contact-form input::placeholder,
-#contact #contact-form textarea::placeholder {
+#contact1 #contact-form1 input::placeholder,
+#contact1 #contact-form1 textarea::placeholder,
+#contact2 #contact-form2 input::placeholder,
+#contact2 #contact-form2 textarea::placeholder{
     color: #fff;
 }
 
-#contact #contact-form input.error,
-#contact #contact-form textarea.error {
+#contact1 #contact-form1 input.error,
+#contact1 #contact-form1 textarea.error,
+#contact2 #contact-form2 input.error,
+#contact2 #contact-form2 textarea.error{
     background: red;
 }
 
-#contact #contact-form input {
+#contact1 #contact-form1 input,
+#contact2 #contact-form2 input{
     line-height: 3.2em;
 
     height: 3.2em;
@@ -349,7 +367,8 @@ a:hover {
     padding-left: 1.6em;
 }
 
-#contact #contact-form textarea {
+#contact1 #contact-form1 textarea,
+#contact2 #contact-form2 textarea{
     line-height: 1.7em;
 
     height: 8em;
@@ -358,7 +377,8 @@ a:hover {
     padding-left: 1.6em;
 }
 
-#contact #contact-form button {
+#contact1 #contact-form1 button,
+#contact2 #contact-form2 button{
     line-height: 3.2em;
 
     position: relative;
@@ -374,7 +394,8 @@ a:hover {
     background: none !important;
 }
 
-#contact #contact-form button:before {
+#contact1 #contact-form1 button:before,
+#contact2 #contact-form2 button:before{
     position: absolute;
     z-index: -1;
     top: 0;
@@ -389,7 +410,8 @@ a:hover {
     background: #111;
 }
 
-#contact #contact-form button:after {
+#contact1 #contact-form1 button:after,
+#contact2 #contact-form2 button:after{
     position: absolute;
     z-index: -1;
     top: 0;
@@ -406,11 +428,13 @@ a:hover {
     background: #008aff;
 }
 
-#contact #contact-form button:hover:after {
+#contact1 #contact-form1 button:hover:after,
+#contact2 #contact-form2 button:hover:after{
     width: 100%;
 }
 
-#contact #contact-form .success-message {
+#contact1 #contact-form1 .success-message,
+#contact2 #contact-form2 .success-message{
     font-size: 2rem;
     line-height: 0;
 
@@ -433,7 +457,8 @@ a:hover {
     background: limegreen;
 }
 
-#contact #contact-form.success .success-message {
+#contact1 #contact-form1.success .success-message,
+#contact2 #contact-form2.success .success-message{
     line-height: 6em;
 
     height: 6em;
@@ -537,4 +562,40 @@ a:hover {
     /* top: 70px; */
     width: 100%;
     /* height: 100%; */
+}
+
+.form-controls {
+    margin-bottom: 3.4vh;
+
+    -webkit-transition: .4s ease;
+    -o-transition: .4s ease;
+    transition: .4s ease;
+
+    color: #fff;
+    border: none !important;
+    border-radius: 34px;
+    outline: none !important;
+    background: #111;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 1em;
+    line-height: 1.42857143;
+    background-image: none;
+}
+
+
+/* 定义隐藏下拉框默认样式及图片覆盖下拉按钮 */
+.info-select{
+    width: 200px;
+    outline:none;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -ms-appearance:none;
+    /*background: url(img/down.png) no-repeat scroll right center transparent;*/
 }

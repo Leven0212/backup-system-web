@@ -5,7 +5,7 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
 /**
  * ScrollReveal
  * ------------
- * Version : 3.3.6
+ * Version : 3.3.6Ï
  * Website : scrollrevealjs.org
  * Repo    : github.com/jlmakes/scrollreveal.js
  * Author  : Julian Lloyd (@jlmakes)

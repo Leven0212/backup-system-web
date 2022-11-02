@@ -27,7 +27,7 @@
             <p style="height: 45px; width:100%; line-height: 45px; text-align: center; font-size: 24px; font-family: KaiTi; color:rgba(217, 229, 241, 1); font-weight: bold; margin: 0 0;">电子科技大学文件备份系统</p>
         </div>
         <div>
-            <p style="height: 20px; width: 100%; line-height: 20px; text-align: center; font-size: 18px; font-family: KaiTi; color: grey; font-weight: normal; color:rgba(152, 185, 218, .7)">小组成员：李文，郑皓瑞，钟文宇</p>
+            <p style="height: 20px; width: 100%; line-height: 20px; text-align: center; font-size: 18px; font-family: KaiTi; color: grey; font-weight: normal; color:rgba(152, 185, 218, .7)">小组成员：李文，郑皓瑞，钟文宇（按姓名首字母排序）</p>
         </div>
     </div>
 	<!-- 标题信息栏 -->
@@ -43,25 +43,30 @@
 		<div class="image-container">
 			<!-- <div class="background-img"></div> -->
 			<!-- CONTENT AREA INNER -->
-			<div class="content-area-inner">
+			<div class="content-area-inner1">
 				<!-- CONTACT -->
-				<section id="contact">
+				<section id="contact1">
 					<h3 class="headline scroll-animated-from-right">文件备份</h3>
 
 					<!-- CONTACT FORM -->
-					<form id="contact-form" action="php/contact.php" method="post">
-						<input id="FileDir" type="text" name="name"
-							class="form-control scroll-animated-from-right" placeholder="* 文件路径">
-						<input id="contact-form-email" type="text" name="email"
-							class="form-control scroll-animated-from-right" placeholder="* Your Email">
+					<form id="contact-form1" action="/beifen" method="post">
+						<input id="FileDir" type="text" name="FileDir"
+							class="form-control scroll-animated-from-right" placeholder="* 文件路径（绝对路径）" autocomplete="off">
+<!--						<input id="contact-form-email" type="text" name="email"-->
+<!--							class="form-control scroll-animated-from-right" placeholder="* Your Email">-->
 						<!-- PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) -->
-						<div class="fhp-input"><input id="contact-form-company" type="text" name="company"
-								class="form-control"></div>
+<!--						<div class="fhp-input"><input id="contact-form-company" type="text" name="company"-->
+<!--								class="form-control"></div>-->
 						<!-- /PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) -->
-						<textarea id="contact-form-message" name="message" class="form-control scroll-animated-from-right"
-							placeholder="* Your Message"></textarea>
-						<button type="submit" class="form-control scroll-animated-from-right">Send Mail</button>
-						<div class="success-message">* The Email was Sent Successfully!</div>
+<!--						<textarea id="contact-form-message" name="message" class="form-control scroll-animated-from-right"-->
+<!--							placeholder="* Your Message"></textarea>-->
+						<select class="form-controls info-select">
+							<option selected="selected" value="jichu">基础备份</option>
+							<option value="jieya">压缩备份</option>
+							<option value="jiemi">加密压缩</option>
+						</select>
+						<button type="submit" class="form-control scroll-animated-from-right">备份</button>
+<!--						<div class="success-message">* The Email was Sent Successfully!</div>-->
 					</form>
 					<!-- /CONTACT FORM -->
 				</section>
@@ -80,33 +85,38 @@
 		<!-- CONTENT AREA -->
 		<div class="content-area">
 			<!-- CONTENT AREA INNER -->
-			<div class="content-area-inner">
+			<div class="content-area-inner2">
 
 				<!-- CONTACT -->
-				<section id="contact">
+				<section id="contact2">
 					<h3 class="headline scroll-animated-from-right">文件恢复</h3>
 
 					<!-- CONTACT FORM -->
-					<form id="contact-form" action="php/contact.php" method="post">
-						<input id="FileDir" type="text" name="name"
-							class="form-control scroll-animated-from-right" placeholder="* 文件路径">
-						<input id="contact-form-email" type="text" name="email"
-							class="form-control scroll-animated-from-right" placeholder="* Your Email">
-						<!-- PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) -->
-						<div class="fhp-input"><input id="contact-form-company" type="text" name="company"
-								class="form-control"></div>
-						<!-- /PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) -->
-						<textarea id="contact-form-message" name="message" class="form-control scroll-animated-from-right"
-							placeholder="* Your Message"></textarea>
-						<button type="submit" class="form-control scroll-animated-from-right">Send Mail</button>
-						<div class="success-message">* The Email was Sent Successfully!</div>
+					<form id="contact-form2" action="/huifu" method="post">
+						<input id="FileDir2" type="text" name="FileDir2"
+							class="form-control scroll-animated-from-right" placeholder="* 文件路径（绝对路径）">
+<!--						<input id="contact-form-email" type="text" name="email"-->
+<!--							class="form-control scroll-animated-from-right" placeholder="* Your Email">-->
+<!--						&lt;!&ndash; PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) &ndash;&gt;-->
+<!--						<div class="fhp-input"><input id="contact-form-company" type="text" name="company"-->
+<!--								class="form-control"></div>-->
+<!--						&lt;!&ndash; /PHANTOM ELEMENT ( HONEYPOT CAPTCHA FOR SECURITY ) &ndash;&gt;-->
+<!--						<textarea id="contact-form-message" name="message" class="form-control scroll-animated-from-right"-->
+<!--							placeholder="* Your Message"></textarea>-->
+						<select class="form-controls info-select">
+							<option selected="selected" value="jichu2">基础恢复</option>
+							<option value="jieya2">解压恢复</option>
+							<option value="jiemi2">解密解压</option>
+						</select>
+						<button type="submit" class="form-control2 scroll-animated-from-right2">恢复</button>
+<!--						<div class="success-message">* The Email was Sent Successfully!</div>-->
 					</form>
 					<!-- /CONTACT FORM -->
 				</section>
 				<!-- /CONTACT -->
 
 				<!-- FOOTER -->
-				<section id="footer">
+				<section id="footer2">
 					<p class="scroll-animated-from-right">Copyright &copy; 2022. Group All rights reserved.</p>
 				</section>
 				<!-- /FOOTER -->
