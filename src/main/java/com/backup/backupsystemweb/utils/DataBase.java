@@ -17,11 +17,11 @@ import java.util.List;
 
 public class DataBase {
     @Resource
-    private MongoTemplate mongoTemplate;
+    private static MongoTemplate mongoTemplate;
 
     private static final String COLLECTION_NAME = "files";
 
-    public Object insert(String name, boolean use, String passwd) {
+    public static Object insert(String name, boolean use, String passwd) {
         // 设置用户信息
         FileInfo file = new FileInfo()
                 .setName(name)
@@ -33,14 +33,14 @@ public class DataBase {
         return newFileInfo;
     }
 
-    public Object findAll() {
+    public static Object findAll() {
         // 执行查询集合中全部文档信息
         List<FileInfo> documentList = mongoTemplate.findAll(FileInfo.class, COLLECTION_NAME);
         // 输出结果
         return documentList;
     }
 
-    public Object findOne(String name) {
+    public static Object findOne(String name) {
         // 设置查询条件参数
         String filename = name;
         // 创建条件对象

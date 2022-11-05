@@ -1,5 +1,6 @@
 package com.backup.backupsystemweb.utils;
 
+
 /**
  * @ClassName Judge
  * @Description TODO
@@ -19,5 +20,22 @@ public class Judge {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 判断当前待恢复文件是否有被加密备份的文件
+     * @param file  文件名
+     * @return      有则返回true，否则返回false
+     */
+    public static boolean HavePasswd(String file) {
+        FileInfo fileInfo = (FileInfo) DataBase.findOne(file);
+        if(fileInfo == null | !fileInfo.isUsepasswd()) return false;
+        else return true;
+    }
+
+    public static boolean checkPasswd(String file, String passwd) {
+        FileInfo fileInfo = (FileInfo) DataBase.findOne(file);
+        if(!fileInfo.getPasswd().equals(passwd)) return false;
+        else return true;
     }
 }

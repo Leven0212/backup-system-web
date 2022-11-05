@@ -18,23 +18,6 @@ public class Algorithm {
     public static String deal(List<String> str) {
         if(str.get(0).equals("backup")) {
             str.remove(0);
-            return backup(str);
-        } else if (str.get(0).equals("recover")) {
-            str.remove(0);
-            return recover(str);
-        } else {
-            str.remove(0);
-            return check(str);
-        }
-    }
-
-    private static String backup(List<String> str) {
-        try {
-            Process p = null;
-            String line = null;
-            ProcessBuilder pb = null;
-            BufferedReader stdout = null;
-
             if(str.get(str.size()-1) == null) {
                 str.remove(str.size()-1);
             }
@@ -47,6 +30,37 @@ public class Algorithm {
             } else {
                 str.set(2, "2");
             }
+        } else if (str.get(0).equals("recover")) {
+            str.remove(0);
+            if(str.get(str.size()-1) == null) {
+                str.remove(str.size()-1);
+            }
+//            添加恢复参数
+            str.add(1, "1");
+            if(str.get(2).equals("jichu")) {
+                str.set(2, "0");
+            } else if (str.get(2).equals("yasuo")) {
+                str.set(2, "1");
+            } else {
+                str.set(2, "2");
+            }
+        } else {
+            str.remove(0);
+            str.remove(str.size()-1);
+//            添加校验参数
+            str.add(1, "2");
+            str.set(2, "0");
+        }
+        return connect(str);
+    }
+
+    private static String connect(List<String> str) {
+        try {
+            Process p = null;
+            String line = null;
+            ProcessBuilder pb = null;
+            BufferedReader stdout = null;
+
             str.add(0, "./build/code/backup");
             // System.out.println(str);
             pb = new ProcessBuilder(str);
@@ -65,14 +79,6 @@ public class Algorithm {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private static String recover(List<String> str) {
-        return "";
-    }
-
-    private static String check(List<String> str) {
-        return "";
     }
 
     private static String analyze(int code) {

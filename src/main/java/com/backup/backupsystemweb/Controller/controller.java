@@ -21,12 +21,25 @@ public class controller {
         return "index";
     }
 
+    @GetMapping("/test")
+    public static String test(Model map) {
+        map.addAttribute("msg", "test");
+        return "test";
+    }
+
     @GetMapping("/thread")
     public static String deal(@ModelAttribute("filename") String filename,
                             @ModelAttribute("method") String method,
                             @ModelAttribute("passwd") String password,
                             @ModelAttribute("key") String key,
                             Model map) {
+        if(key.equals("recover")) {
+            boolean right = Judge.checkPasswd(filename, password);
+            if(!right) {
+                map.addAttribute("msg", "密码有误，请检查后重试");
+                return "test";
+            }
+        }
         List<String> attr = new ArrayList<String>();
         attr.add(key);
         attr.add(filename);
@@ -64,14 +77,37 @@ public class controller {
                                 @RequestParam("leixing") String method,
                                 Model map,
                                 RedirectAttributes attr) {
-        return "";
+        boolean passwd =  Judge.UsePasswd(filePath, method);
+        if(passwd) {
+            boolean usePass = Judge.HavePasswd(filePath);
+            if(usePass) {
+                map.addAttribute("filename", filePath);
+                map.addAttribute("method", method);
+                map.addAttribute("key", "recover");
+                return "passwd";
+            } else {
+                map.addAttribute("msg", "很抱歉，还尚未对"+filePath+"进行加密备份，请检查后重新选择恢复");
+                return "test";
+            }
+        } else
+        {
+            attr.addFlashAttribute("filename", filePath);
+            attr.addFlashAttribute("method", method);
+            attr.addFlashAttribute("passwd", null);
+            attr.addFlashAttribute("key", "recover");
+            return "redirect:/thread";
+        }
     }
 
     @PostMapping("/check")
     public static String check(@RequestParam("tarFile") String filePath,
                                 Model map,
                                 RedirectAttributes attr) {
-        return "";
+        attr.addFlashAttribute("filename", filePath);
+        attr.addFlashAttribute("method", "jichu");
+        attr.addFlashAttribute("passwd", null);
+        attr.addFlashAttribute("key", "check");
+        return "redirect:/thread";
     }
 
     @PostMapping("/pass")
