@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 public class controller {
-    public static Judge judge;
+    // public static Judge judge;
 //    private static String password = null;
 //    private static String filename = null;
 
@@ -47,7 +47,7 @@ public class controller {
                                 Model map,
                                 RedirectAttributes attr) {
 //        filename = filePath;
-        boolean passwd =  judge.UsePasswd(filePath, method);
+        boolean passwd =  Judge.UsePasswd(filePath, method);
         if(passwd) {
             map.addAttribute("filename", filePath);
             map.addAttribute("method", method);

@@ -48,6 +48,7 @@ public class Algorithm {
                 str.set(2, "2");
             }
             str.add(0, "./build/code/backup");
+            // System.out.println(str);
             pb = new ProcessBuilder(str);
             pb.directory(new File(pathname));
             p = pb.start();

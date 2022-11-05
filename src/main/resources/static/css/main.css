@@ -295,12 +295,31 @@ a:hover {
 /*#contact1 #contact-form1 select,*/
 #contact2 #contact-form2 input,
 #contact2 #contact-form2 textarea,
-#contact2 #contact-form2 button
+#contact2 #contact-form2 button,
 /*#contact2 #contact-form2 select*/
+.check #contact-form1 button
 {
     font-size: 2rem;
 
     margin-bottom: 3.4vh;
+
+    -webkit-transition: .4s ease;
+    -o-transition: .4s ease;
+    transition: .4s ease;
+
+    color: #fff;
+    border: none !important;
+    border-radius: 34px;
+    outline: none !important;
+    background: #111;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.check #contact-form1 input{
+    font-size: 2rem;
+
+    margin-bottom: 1.5vh;
 
     -webkit-transition: .4s ease;
     -o-transition: .4s ease;
@@ -320,7 +339,10 @@ a:hover {
 #contact1 #contact-form1.success button,
 #contact2 #contact-form2.success input,
 #contact2 #contact-form2.success textarea,
-#contact2 #contact-form2.success button{
+#contact2 #contact-form2.success button,
+.check #contact-form1.success input,
+.check #contact-form1.success textarea,
+.check #contact-form1.success button{
     line-height: 0;
 
     height: 0;
@@ -359,7 +381,8 @@ a:hover {
 }
 
 #contact1 #contact-form1 input,
-#contact2 #contact-form2 input{
+#contact2 #contact-form2 input,
+.check #contact-form1 input{
     line-height: 3.2em;
 
     height: 3.2em;
@@ -378,7 +401,8 @@ a:hover {
 }
 
 #contact1 #contact-form1 button,
-#contact2 #contact-form2 button{
+#contact2 #contact-form2 button,
+.check #contact-form1 button{
     line-height: 3.2em;
 
     position: relative;
@@ -395,7 +419,8 @@ a:hover {
 }
 
 #contact1 #contact-form1 button:before,
-#contact2 #contact-form2 button:before{
+#contact2 #contact-form2 button:before,
+.check #contact-form1 button:before{
     position: absolute;
     z-index: -1;
     top: 0;
@@ -411,7 +436,8 @@ a:hover {
 }
 
 #contact1 #contact-form1 button:after,
-#contact2 #contact-form2 button:after{
+#contact2 #contact-form2 button:after,
+.check #contact-form1 button:after{
     position: absolute;
     z-index: -1;
     top: 0;
@@ -429,7 +455,8 @@ a:hover {
 }
 
 #contact1 #contact-form1 button:hover:after,
-#contact2 #contact-form2 button:hover:after{
+#contact2 #contact-form2 button:hover:after,
+.check #contact-form1 button:hover:after{
     width: 100%;
 }
 
@@ -589,7 +616,8 @@ a:hover {
 }
 
 
-/* 定义隐藏下拉框默认样式及图片覆盖下拉按钮 */
+/** 8. 定义隐藏下拉框默认样式及图片覆盖下拉按钮 
+*******************************************************************/
 .info-select{
     width: 200px;
     outline:none;
@@ -598,4 +626,15 @@ a:hover {
     -webkit-appearance:none;
     -ms-appearance:none;
     /*background: url(img/down.png) no-repeat scroll right center transparent;*/
+}
+
+/** 9. Check
+*******************************************************************/
+.check {
+    position: absolute;
+    /* top: 70px; */
+    left: 25%;
+    width: 50%;
+    height: 140px;
+    bottom: 0;
 }
