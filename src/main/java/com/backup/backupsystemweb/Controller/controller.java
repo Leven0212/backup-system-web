@@ -7,10 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,8 +61,16 @@ public class controller {
 
     @PostMapping("/huifu")
     public static String huifu(@RequestParam("FileDir2") String filePath,
-                               @RequestParam("leixing") String method,
-                               Model map) {
+                                @RequestParam("leixing") String method,
+                                Model map,
+                                RedirectAttributes attr) {
+        return "";
+    }
+
+    @PostMapping("/check")
+    public static String check(@RequestParam("tarFile") String filePath,
+                                Model map,
+                                RedirectAttributes attr) {
         return "";
     }
 
