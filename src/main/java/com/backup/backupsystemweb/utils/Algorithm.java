@@ -1,5 +1,7 @@
 package com.backup.backupsystemweb.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -13,7 +15,8 @@ import java.util.List;
  */
 
 public class Algorithm {
-    private static String pathname = "/home/ubuntu/backup-system";
+    @Value("${AlgorithmHome}")
+    private static String pathname;
 
     public static String deal(List<String> str) {
         if(str.get(0).equals("backup")) {
