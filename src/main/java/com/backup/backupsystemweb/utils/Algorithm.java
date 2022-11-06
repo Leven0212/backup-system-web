@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import java.io.FileInputStream;
 
 /**
@@ -15,10 +19,12 @@ import java.io.FileInputStream;
  * @Date 2022/11/5
  */
 
+@Service
 public class Algorithm {
-    private static String pathname = "/home/ubuntu/backup-system/";
+    @Value("${algorithm.home}")
+    private String pathname;
 
-    public static List<String> deal(List<String> str) {
+    public List<String> deal(List<String> str) {
         String key = str.get(0);
         if(str.get(0).equals("backup")) {
             str.remove(0);
@@ -65,7 +71,7 @@ public class Algorithm {
         return strList;
     }
 
-    private static String connect(List<String> str) {
+    private String connect(List<String> str) {
         try {
             Process p = null;
             String line = null;
@@ -97,7 +103,7 @@ public class Algorithm {
      * 读取fail.txt并返回其中的错误原因
      * @return fail.txt内容
      */
-    public static List<String> ReadTxt() {
+    public List<String> ReadTxt() {
         List<String> content = new ArrayList<>();
         try {
             String encoding="GBK";
@@ -120,7 +126,7 @@ public class Algorithm {
         return content;
     }
 
-    private static String analyze(int code) {
+    private String analyze(int code) {
         if(code == 0)
             return "成功";
         else return "失败";

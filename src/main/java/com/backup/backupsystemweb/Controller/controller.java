@@ -16,6 +16,9 @@ import java.util.List;
 public class controller {
     @Autowired
     Judge judge;
+
+    @Autowired
+    Algorithm algorithm;
 //    private static String password = null;
 //    private static String filename = null;
 
@@ -48,7 +51,7 @@ public class controller {
         attr.add(filename);
         attr.add(method);
         attr.add(password);
-        List<String> resp = Algorithm.deal(attr);
+        List<String> resp = algorithm.deal(attr);
         if(key.equals("backup") && resp.equals("成功")) {
             judge.InDatabase(filename, method, password);
         }
@@ -83,19 +86,22 @@ public class controller {
                                 @RequestParam("leixing") String method,
                                 Model map,
                                 RedirectAttributes attr) {
+        // 用于判断用户选择的恢复方式是否是输入密码的方式
         boolean passwd =  judge.UsePasswd(filePath, method);
+        // 用于判断用户操作的文件是否加密备份
         boolean usePass = judge.HavePasswd(filePath);
         if(usePass) {
+            // 是加密备份且用户选择输入密码
             if(passwd) {
                 map.addAttribute("filename", filePath);
                 map.addAttribute("method", method);
                 map.addAttribute("key", "recover");
                 return "passwd";
-            } else {
-                map.addAttribute("msg", "很抱歉，还尚未对"+filePath+"进行加密备份，请检查后重新选择恢复");
+            } else {    // 是加密备份但用户选择不输入密码
+                map.addAttribute("msg", "很抱歉，您之前对"+filePath+"进行了加密备份，请选择‘解密解压’恢复模式后，重新进行恢复");
                 return "test";
             }
-        } else
+        } else  // 未进行加密备份时，直接忽略用户输入的密码
         {
             attr.addFlashAttribute("filename", filePath);
             attr.addFlashAttribute("method", method);
