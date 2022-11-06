@@ -1,11 +1,12 @@
 package com.backup.backupsystemweb.utils;
 
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.io.FileInputStream;
 
 /**
  * @ClassName Algorithm
@@ -15,10 +16,10 @@ import java.util.List;
  */
 
 public class Algorithm {
-    @Value("${AlgorithmHome}")
-    private static String pathname;
+    private static String pathname = "/home/ubuntu/backup-system/";
 
-    public static String deal(List<String> str) {
+    public static List<String> deal(List<String> str) {
+        String key = str.get(0);
         if(str.get(0).equals("backup")) {
             str.remove(0);
             if(str.get(str.size()-1) == null) {
@@ -54,7 +55,14 @@ public class Algorithm {
             str.add(1, "2");
             str.set(2, "0");
         }
-        return connect(str);
+        String ans = connect(str);
+        List<String> strList = new ArrayList<>();
+        strList.add(ans);
+        if(key.equals("check") && ans.equals("失败")) {
+            List<String> tmp = ReadTxt();
+            strList.addAll(tmp);
+        }
+        return strList;
     }
 
     private static String connect(List<String> str) {
@@ -67,6 +75,7 @@ public class Algorithm {
             str.add(0, "./build/code/backup");
             // System.out.println(str);
             pb = new ProcessBuilder(str);
+            System.out.println(pathname);
             pb.directory(new File(pathname));
             p = pb.start();
             stdout = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -82,6 +91,33 @@ public class Algorithm {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 读取fail.txt并返回其中的错误原因
+     * @return fail.txt内容
+     */
+    public static List<String> ReadTxt() {
+        List<String> content = new ArrayList<>();
+        try {
+            String encoding="GBK";
+            File file=new File(pathname + "fail.txt");
+            if(file.isFile() && file.exists()){ //判断文件是否存在
+                InputStreamReader read = new InputStreamReader(new FileInputStream(file),encoding);//考虑到编码格式
+                BufferedReader bufferedReader = new BufferedReader(read);
+                String lineTxt = null;
+                while((lineTxt = bufferedReader.readLine()) != null) {
+                    content.add(lineTxt);
+                }
+                read.close();
+            }else{
+                content.add("找不到指定的文件");
+            }
+        } catch (Exception e) {
+            System.out.println("读取文件内容出错");
+            e.printStackTrace();
+        }
+        return content;
     }
 
     private static String analyze(int code) {

@@ -48,7 +48,7 @@ public class controller {
         attr.add(filename);
         attr.add(method);
         attr.add(password);
-        String resp = Algorithm.deal(attr);
+        List<String> resp = Algorithm.deal(attr);
         if(key.equals("backup") && resp.equals("成功")) {
             judge.InDatabase(filename, method, password);
         }
