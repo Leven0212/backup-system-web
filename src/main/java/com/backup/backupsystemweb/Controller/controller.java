@@ -2,6 +2,8 @@ package com.backup.backupsystemweb.Controller;
 
 import com.backup.backupsystemweb.utils.Algorithm;
 import com.backup.backupsystemweb.utils.Judge;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,29 +14,30 @@ import java.util.List;
 
 @Controller
 public class controller {
-    // public static Judge judge;
+    @Autowired
+    Judge judge;
 //    private static String password = null;
 //    private static String filename = null;
 
     @GetMapping("/")
-    public static String main_page() {
+    public String main_page() {
         return "index";
     }
 
     @GetMapping("/test")
-    public static String test(Model map) {
+    public String test(Model map) {
         map.addAttribute("msg", "test");
         return "test";
     }
 
     @GetMapping("/thread")
-    public static String deal(@ModelAttribute("filename") String filename,
+    public String deal(@ModelAttribute("filename") String filename,
                             @ModelAttribute("method") String method,
                             @ModelAttribute("passwd") String password,
                             @ModelAttribute("key") String key,
                             Model map) {
-        if(key.equals("recover")) {
-            boolean right = Judge.checkPasswd(filename, password);
+        if(key.equals("recover") && method.equals("jiemi")) {
+            boolean right = judge.CheckPasswd(filename, password);
             if(!right) {
                 map.addAttribute("msg", "密码有误，请检查后重试");
                 return "test";
@@ -46,17 +49,20 @@ public class controller {
         attr.add(method);
         attr.add(password);
         String resp = Algorithm.deal(attr);
+        if(key.equals("backup") && resp.equals("成功")) {
+            judge.InDatabase(filename, method, password);
+        }
         map.addAttribute("msg", resp);
         return "test";
     }
 
     @PostMapping("/beifen")
-    public static String beifen(@RequestParam("FileDir") String filePath,
+    public String beifen(@RequestParam("FileDir") String filePath,
                                 @RequestParam("method") String method,
                                 Model map,
                                 RedirectAttributes attr) {
 //        filename = filePath;
-        boolean passwd =  Judge.UsePasswd(filePath, method);
+        boolean passwd =  judge.UsePasswd(filePath, method);
         if(passwd) {
             map.addAttribute("filename", filePath);
             map.addAttribute("method", method);
@@ -73,14 +79,14 @@ public class controller {
     }
 
     @PostMapping("/huifu")
-    public static String huifu(@RequestParam("FileDir2") String filePath,
+    public String huifu(@RequestParam("FileDir2") String filePath,
                                 @RequestParam("leixing") String method,
                                 Model map,
                                 RedirectAttributes attr) {
-        boolean passwd =  Judge.UsePasswd(filePath, method);
-        if(passwd) {
-            boolean usePass = Judge.HavePasswd(filePath);
-            if(usePass) {
+        boolean passwd =  judge.UsePasswd(filePath, method);
+        boolean usePass = judge.HavePasswd(filePath);
+        if(usePass) {
+            if(passwd) {
                 map.addAttribute("filename", filePath);
                 map.addAttribute("method", method);
                 map.addAttribute("key", "recover");
@@ -100,7 +106,7 @@ public class controller {
     }
 
     @PostMapping("/check")
-    public static String check(@RequestParam("tarFile") String filePath,
+    public String check(@RequestParam("tarFile") String filePath,
                                 Model map,
                                 RedirectAttributes attr) {
         attr.addFlashAttribute("filename", filePath);
@@ -111,7 +117,7 @@ public class controller {
     }
 
     @PostMapping("/pass")
-    public static String getpasswd(@RequestParam("passwd") String passwd,
+    public String getpasswd(@RequestParam("passwd") String passwd,
                                  @RequestParam("filename") String filename,
                                  @RequestParam("method") String method,
                                  @RequestParam("key") String key,

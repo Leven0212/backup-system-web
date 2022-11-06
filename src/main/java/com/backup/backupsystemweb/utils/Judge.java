@@ -1,5 +1,7 @@
 package com.backup.backupsystemweb.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @ClassName Judge
@@ -7,15 +9,17 @@ package com.backup.backupsystemweb.utils;
  * @Author leven
  * @Date 2022/11/2
  */
-
+@Service
 public class Judge {
+    @Autowired
+    DataBase dataBase;
     /**
      * 判断是否需要密码
      * @param file      文件名
      * @param method    备份或加密类型
      * @return          需要密码则返回true，否则返回false；
      */
-    public static boolean UsePasswd(String file, String method) {
+    public boolean UsePasswd(String file, String method) {
         if(method.equals("jiami") | method.equals("jiemi")) {
             return true;
         }
@@ -27,15 +31,44 @@ public class Judge {
      * @param file  文件名
      * @return      有则返回true，否则返回false
      */
-    public static boolean HavePasswd(String file) {
-        FileInfo fileInfo = (FileInfo) DataBase.findOne(file);
-        if(fileInfo == null | !fileInfo.isUsepasswd()) return false;
+    public boolean HavePasswd(String file) {
+        FileInfo fileInfo = (FileInfo) dataBase.findOne(file);
+        if(fileInfo == null || !fileInfo.isUsepasswd()) return false;
         else return true;
     }
 
-    public static boolean checkPasswd(String file, String passwd) {
-        FileInfo fileInfo = (FileInfo) DataBase.findOne(file);
+    /**
+     * 检查密码是否正确
+     * @param file      文件名
+     * @param passwd    密码
+     * @return          正确返回true，否则返回false
+     */
+    public boolean CheckPasswd(String file, String passwd) {
+        FileInfo fileInfo = (FileInfo) dataBase.findOne(file);
         if(!fileInfo.getPasswd().equals(passwd)) return false;
         else return true;
+    }
+
+    /**
+     * 判断文件加密信息是否在数据库中
+     * @param file      文件名
+     * @param method    备份方式
+     * @param passwd    加密密码（如果使用加密方式）         
+     */
+    public void InDatabase(String file, String method, String passwd) {
+        FileInfo fileInfo = (FileInfo) dataBase.findOne(file);
+        boolean use;
+        if(!method.equals("jiami")) {
+            use = false;
+            passwd = null;
+        } else {
+            use = true;
+        }
+        if(fileInfo == null) {
+            FileInfo fInfo = (FileInfo) dataBase.insert(file, use, passwd);
+            System.out.println(fInfo.getName() + " " + fInfo.isUsepasswd() + " " + fInfo.getPasswd());
+        } else {
+            dataBase.update(file, use, passwd);
+        }
     }
 }

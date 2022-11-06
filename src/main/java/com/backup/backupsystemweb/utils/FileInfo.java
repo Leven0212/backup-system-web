@@ -1,8 +1,9 @@
 package com.backup.backupsystemweb.utils;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.Data;
-import lombok.ToString;
-import lombok.experimental.Accessors;
 
 /**
  * @ClassName File
@@ -12,8 +13,7 @@ import lombok.experimental.Accessors;
  */
 
 @Data
-@ToString
-@Accessors(chain = true)
+@Document("files")
 public class FileInfo {
     private String name;
     private boolean usepasswd;

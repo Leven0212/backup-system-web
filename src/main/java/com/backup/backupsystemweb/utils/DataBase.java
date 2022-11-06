@@ -1,10 +1,13 @@
 package com.backup.backupsystemweb.utils;
 
+import com.mongodb.client.result.UpdateResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,32 +18,40 @@ import java.util.List;
  * @Date 2022/11/2
  */
 
+@Service
 public class DataBase {
-    @Resource
-    private static MongoTemplate mongoTemplate;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     private static final String COLLECTION_NAME = "files";
 
-    public static Object insert(String name, boolean use, String passwd) {
-        // 设置用户信息
-        FileInfo file = new FileInfo()
-                .setName(name)
-                .setUsepasswd(use)
-                .setPasswd(passwd);
-        // 插入一条用户数据，如果文档信息已经存在就抛出异常
+    public Object insert(String name, boolean use, String passwd) {
+        FileInfo file;
+        if(passwd == null) {
+            file = new FileInfo();
+            file.setName(name);
+            file.setUsepasswd(use);
+        } else {
+            // 设置文件信息
+            file = new FileInfo();
+            file.setName(name);
+            file.setUsepasswd(use);
+            file.setPasswd(passwd);
+        }
+        // 插入一条文件数据，如果文档信息已经存在就抛出异常
         FileInfo newFileInfo = mongoTemplate.insert(file, COLLECTION_NAME);
         // 输出存储结果
         return newFileInfo;
     }
 
-    public static Object findAll() {
+    public Object findAll() {
         // 执行查询集合中全部文档信息
         List<FileInfo> documentList = mongoTemplate.findAll(FileInfo.class, COLLECTION_NAME);
         // 输出结果
         return documentList;
     }
 
-    public static Object findOne(String name) {
+    public Object findOne(String name) {
         // 设置查询条件参数
         String filename = name;
         // 创建条件对象
@@ -51,5 +62,20 @@ public class DataBase {
         FileInfo fileInfo = mongoTemplate.findOne(query, FileInfo.class, COLLECTION_NAME);
         // 输出结果
         return fileInfo;
+    }
+
+    public Object update(String name, boolean use, String passwd) {
+        String filename = name;
+        // 创建条件对象
+        Criteria criteria = Criteria.where("name").is(filename);
+        // 创建查询对象，然后将条件对象添加到其中
+        Query query = new Query(criteria);
+        // 创建更新对象,并设置更新的内容
+        Update update = new Update().set("usepasswd", use).set("passwd", passwd);
+        // 执行更新，如果没有找到匹配查询的文档，则创建并插入一个新文档
+        UpdateResult result = mongoTemplate.upsert(query, update, FileInfo.class, COLLECTION_NAME);
+        // 输出结果信息
+        String resultInfo = "匹配到" + result.getMatchedCount() + "条数据,对第一条数据进行了更改";
+        return resultInfo;
     }
 }
