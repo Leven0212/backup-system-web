@@ -61,6 +61,8 @@ public class Algorithm {
             str.add(1, "2");
             str.set(2, "0");
         }
+        String name = str.get(0);
+        if(name.substring(name.length()-1).equals("/")) str.set(0, name.substring(0, name.length()-1));
         String ans = connect(str);
         List<String> strList = new ArrayList<>();
         strList.add(ans);
