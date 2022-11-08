@@ -29,7 +29,9 @@ public class controller {
 
     @GetMapping("/test")
     public String test(Model map) {
-        map.addAttribute("msg", "test");
+        List<String> attr = new ArrayList<>();
+        attr.add("test");
+        map.addAttribute("msg", attr);
         return "test";
     }
 
@@ -42,7 +44,9 @@ public class controller {
         if(key.equals("recover") && method.equals("jiemi")) {
             boolean right = judge.CheckPasswd(filename, password);
             if(!right) {
-                map.addAttribute("msg", "密码有误，请检查后重试");
+                List<String> attr = new ArrayList<String>();
+                attr.add("密码有误，请检查后重试");
+                map.addAttribute("msg", attr);
                 return "test";
             }
         }
@@ -52,7 +56,7 @@ public class controller {
         attr.add(method);
         attr.add(password);
         List<String> resp = algorithm.deal(attr);
-        if(key.equals("backup") && resp.equals("成功")) {
+        if(key.equals("backup") && resp.get(0).equals("执行成功")) {
             judge.InDatabase(filename, method, password);
         }
         map.addAttribute("msg", resp);
@@ -98,7 +102,9 @@ public class controller {
                 map.addAttribute("key", "recover");
                 return "passwd";
             } else {    // 是加密备份但用户选择不输入密码
-                map.addAttribute("msg", "很抱歉，您之前对"+filePath+"进行了加密备份，请选择‘解密解压’恢复模式后，重新进行恢复");
+                List<String> att = new ArrayList<>();
+                att.add("很抱歉，您之前对"+filePath+"进行了加密备份，请选择‘解密解压’恢复模式后，重新进行恢复");
+                map.addAttribute("msg", att);
                 return "test";
             }
         } else  // 未进行加密备份时，直接忽略用户输入的密码

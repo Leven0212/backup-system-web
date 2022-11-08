@@ -66,7 +66,7 @@ public class Judge {
         }
         if(fileInfo == null) {
             FileInfo fInfo = (FileInfo) dataBase.insert(file, use, passwd);
-            System.out.println(fInfo.getName() + " " + fInfo.isUsepasswd() + " " + fInfo.getPasswd());
+            // System.out.println(fInfo.getName() + " " + fInfo.isUsepasswd() + " " + fInfo.getPasswd());
         } else {
             dataBase.update(file, use, passwd);
         }

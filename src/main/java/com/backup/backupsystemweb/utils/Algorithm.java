@@ -66,7 +66,7 @@ public class Algorithm {
         String ans = connect(str);
         List<String> strList = new ArrayList<>();
         strList.add(ans);
-        if(key.equals("check") && ans.equals("失败")) {
+        if(key.equals("check") && ans.equals("校验后发现备份存在问题")) {
             List<String> tmp = ReadTxt();
             strList.addAll(tmp);
         }
@@ -91,7 +91,7 @@ public class Algorithm {
                 System.out.println(line);
             }
             int ret = p.waitFor();
-            System.out.println("return code is " + ret);
+            // System.out.println("return code is " + ret);
             stdout.close();
             String ans = analyze(ret);
             return ans;
@@ -107,6 +107,7 @@ public class Algorithm {
      */
     public List<String> ReadTxt() {
         List<String> content = new ArrayList<>();
+        content.add("存在问题的文件如下：");
         try {
             String encoding="GBK";
             File file=new File(pathname + "fail.txt");
@@ -130,7 +131,35 @@ public class Algorithm {
 
     private String analyze(int code) {
         if(code == 0)
-            return "成功";
-        else return "失败";
+            return "执行成功";
+        else if(code == 3) {
+            return "文件夹创建失败";
+        } else if(code == 4) {
+            return "普通文件创建失败";
+        } else if(code == 5) {
+            return "备份失败";
+        } else if(code == 6) {
+            return "恢复失败";
+        } else if(code == 7) {
+            return "校验后发现备份存在问题";
+        } else if(code == 8) {
+            return "打开文件失败";
+        } else if(code == 9) {
+            return "打开文件夹失败";
+        } else if(code == 10) {
+            return "文件名称出错";
+        } else if(code == 11) {
+            return "删除文件失败，无法进行恢复";
+        } else if(code == 12) {
+            return "无法修改文件权限，执行失败";
+        } else if(code == 13) {
+            return "读取（软/硬）链接文件出错";
+        } else if(code == 14) {
+            return "创建软链接文件出错";
+        } else if(code == 15) {
+            return "创建硬链接文件出错";
+        } else {
+            return "由于未知原因导致执行出错";
+        }
     }
 }

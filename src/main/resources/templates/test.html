@@ -6,6 +6,8 @@
     <meta http-equiv="refresh" content="5;url=/">
 </head>
 <body>
-    <p th:text="${msg}"></p>
+    <div th:each="msgs:${msg}">
+        <p th:text="${msgs}"></p>
+    </div>
 </body>
 </html>
