@@ -47,19 +47,29 @@ public class Algorithm {
             }
 //            添加恢复参数
             str.add(1, "1");
-            if(str.get(2).equals("jichu")) {
+            if(str.get(2).equals("jichu2")) {
                 str.set(2, "0");
-            } else if (str.get(2).equals("yasuo")) {
+            } else if (str.get(2).equals("jieya")) {
                 str.set(2, "1");
             } else {
                 str.set(2, "2");
             }
         } else {
             str.remove(0);
-            str.remove(str.size()-1);
+//            str.remove(str.size()-1);
+            if(str.get(str.size()-1) == null) {
+                str.remove(str.size()-1);
+            }
 //            添加校验参数
             str.add(1, "2");
-            str.set(2, "0");
+            if(str.get(2).equals("jichu2")) {
+                str.set(2, "0");
+            } else if (str.get(2).equals("jieya")) {
+                str.set(2, "1");
+            } else {
+                str.set(2, "2");
+            }
+//            str.set(2, "0");
         }
         String name = str.get(0);
 //        if(name.substring(name.length()-1).equals("/")) str.set(0, name.substring(0, name.length()-1));
@@ -81,9 +91,9 @@ public class Algorithm {
             BufferedReader stdout = null;
 
             str.add(0, "./build/code/backup");
-            // System.out.println(str);
+            System.out.println(str);
             pb = new ProcessBuilder(str);
-            System.out.println(pathname);
+//            System.out.println(pathname);
             pb.directory(new File(pathname));
             p = pb.start();
             stdout = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -109,10 +119,11 @@ public class Algorithm {
         List<String> content = new ArrayList<>();
         content.add("存在问题的文件如下：");
         try {
-            String encoding="GBK";
+            String encoding="utf8";
 //            System.out.println("pathname: " + pathname);
             File file=new File(pathname + "fail.txt");
             if(file.isFile() && file.exists()){ //判断文件是否存在
+//                System.out.println(pathname + "fail.txt");
                 InputStreamReader read = new InputStreamReader(new FileInputStream(file),encoding);//考虑到编码格式
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;

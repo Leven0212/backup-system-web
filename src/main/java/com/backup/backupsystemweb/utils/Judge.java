@@ -30,7 +30,7 @@ public class Judge {
      * @return          需要密码则返回true，否则返回false；
      */
     public boolean UsePasswd(String file, String method) {
-        if(method.equals("jiami") | method.equals("jiemi")) {
+        if(method.equals("jiami") || method.equals("jiemi")) {
             return true;
         }
         return false;
@@ -94,13 +94,14 @@ public class Judge {
         return fileInfo.getPasswd();
     }
 
-    public String GetInfo(String file) {
+    public String GetLevel(String file) {
         String ans;
         FileInfo fileInfo = (FileInfo) dataBase.findOne(file);
         int level = fileInfo.getLevel();
-        if(level == 0) ans = "jichu";
-        else if(level == 1) ans = "yasuo";
-        else ans = "jiami";
+//        System.out.println("level: " + level);
+        if(level == 0) ans = "jichu2";
+        else if(level == 1) ans = "jieya";
+        else ans = "jiemi";
         return ans;
     }
 }

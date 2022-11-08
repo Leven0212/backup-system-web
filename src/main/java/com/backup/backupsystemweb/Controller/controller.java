@@ -108,6 +108,12 @@ public class controller {
         boolean passwd =  judge.UsePasswd(filePath, method);
         // 用于判断用户操作的文件是否加密备份
         boolean usePass = judge.HavePasswd(filePath);
+        if(!judge.GetLevel(filePath).equals(method)) {
+            List<String> att = new ArrayList<>();
+            att.add("很抱歉，您之前对"+filePath+"进行的备份方式与您选择的恢复方式不符，请选择其他两种恢复模式后，重新进行恢复");
+            map.addAttribute("msg", att);
+            return "test";
+        }
         if(usePass) {
             // 是加密备份且用户选择输入密码
             if(passwd) {
@@ -123,6 +129,12 @@ public class controller {
             }
         } else  // 未进行加密备份时，直接忽略用户输入的密码
         {
+            if(passwd) {
+                List<String> att = new ArrayList<>();
+                att.add("很抱歉，您之前对"+filePath+"进行了非加密备份，请选择其他两种恢复模式后，重新进行恢复");
+                map.addAttribute("msg", att);
+                return "test";
+            }
             attr.addFlashAttribute("filename", filePath);
             attr.addFlashAttribute("method", method);
             attr.addFlashAttribute("passwd", null);
@@ -142,11 +154,11 @@ public class controller {
             return "test";
         }
         filePath = judge.normal(filePath);
-        String passwd = null, method = "jiami";
+        String passwd = null, method = "jiemi";
         if(judge.HavePasswd(filePath)) {
             passwd = judge.GetPasswd(filePath);
         } else {
-            method = judge.GetInfo(filePath);
+            method = judge.GetLevel(filePath);
         }
         attr.addFlashAttribute("filename", filePath);
         attr.addFlashAttribute("method", method);
