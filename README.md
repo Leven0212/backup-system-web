@@ -35,3 +35,23 @@
   - 实现数据库的插入功能  **=====解决=====**
   - 将错误代码与文字提示绑定  **=====解决=====**
   - 解决特殊情况：用户选择不需要密码形式，但实际备份文件是加密的，此时现有程序没有检查密码，易导致出错。  **=====解决=====**
+  - 在写入和读取数据库前检查路径合法性，即最后有无`“/”`结尾，并进行处理
+  - 校验时需要使用密码，需读取数据库来获得
+
+## 执行方法：
+### 克隆此代码库并将网站源码打成 `jar` 包，或直接下载已打包好的 `jar` 包
+#### 下载代码并打包
+```shell
+# 下载代码库并进行打包
+> git clone https://github.com/Leven0212/backup-system-web.git
+> mv backup-system-web-master backup-system-web
+> cd backup-system-web
+> mvn clean package
+```
+待出现 `build success` 即可，如下图所示：
+![img.png](https://raw.githubusercontent.com/Leven0212/picture-club/main/202211081754823.png)
+
+#### 直接下载已打包好的 `jar` 包
+```shell
+
+```
