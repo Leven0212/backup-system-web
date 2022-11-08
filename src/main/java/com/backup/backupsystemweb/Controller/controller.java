@@ -69,6 +69,13 @@ public class controller {
                                 Model map,
                                 RedirectAttributes attr) {
 //        filename = filePath;
+        if(filePath.equals("")) {
+            List<String> tmp = new ArrayList<>();
+            tmp.add("文件路径不能为空，请检查后重试！");
+            map.addAttribute("msg", tmp);
+            return "test";
+        }
+        filePath = judge.normal(filePath);
         boolean passwd =  judge.UsePasswd(filePath, method);
         if(passwd) {
             map.addAttribute("filename", filePath);
@@ -90,6 +97,13 @@ public class controller {
                                 @RequestParam("leixing") String method,
                                 Model map,
                                 RedirectAttributes attr) {
+        if(filePath.equals("")) {
+            List<String> tmp = new ArrayList<>();
+            tmp.add("文件路径不能为空，请检查后重试！");
+            map.addAttribute("msg", tmp);
+            return "test";
+        }
+        filePath = judge.normal(filePath);
         // 用于判断用户选择的恢复方式是否是输入密码的方式
         boolean passwd =  judge.UsePasswd(filePath, method);
         // 用于判断用户操作的文件是否加密备份
@@ -121,9 +135,22 @@ public class controller {
     public String check(@RequestParam("tarFile") String filePath,
                                 Model map,
                                 RedirectAttributes attr) {
+        if(filePath.equals("")) {
+            List<String> tmp = new ArrayList<>();
+            tmp.add("文件路径不能为空，请检查后重试！");
+            map.addAttribute("msg", tmp);
+            return "test";
+        }
+        filePath = judge.normal(filePath);
+        String passwd = null, method = "jiami";
+        if(judge.HavePasswd(filePath)) {
+            passwd = judge.GetPasswd(filePath);
+        } else {
+            method = judge.GetInfo(filePath);
+        }
         attr.addFlashAttribute("filename", filePath);
-        attr.addFlashAttribute("method", "jichu");
-        attr.addFlashAttribute("passwd", null);
+        attr.addFlashAttribute("method", method);
+        attr.addFlashAttribute("passwd", passwd);
         attr.addFlashAttribute("key", "check");
         return "redirect:/thread";
     }
@@ -133,7 +160,14 @@ public class controller {
                                  @RequestParam("filename") String filename,
                                  @RequestParam("method") String method,
                                  @RequestParam("key") String key,
-                                 RedirectAttributes attr) {
+                                 RedirectAttributes attr,
+                                Model map) {
+        if(passwd.equals("")) {
+            List<String> tmp = new ArrayList<>();
+            tmp.add("密码不能为空，请检查后重试！");
+            map.addAttribute("msg", tmp);
+            return "test";
+        }
         attr.addFlashAttribute("filename", filename);
         attr.addFlashAttribute("method", method);
         attr.addFlashAttribute("passwd", passwd);

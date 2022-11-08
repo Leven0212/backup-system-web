@@ -62,7 +62,7 @@ public class Algorithm {
             str.set(2, "0");
         }
         String name = str.get(0);
-        if(name.substring(name.length()-1).equals("/")) str.set(0, name.substring(0, name.length()-1));
+//        if(name.substring(name.length()-1).equals("/")) str.set(0, name.substring(0, name.length()-1));
         String ans = connect(str);
         List<String> strList = new ArrayList<>();
         strList.add(ans);
@@ -110,6 +110,7 @@ public class Algorithm {
         content.add("存在问题的文件如下：");
         try {
             String encoding="GBK";
+//            System.out.println("pathname: " + pathname);
             File file=new File(pathname + "fail.txt");
             if(file.isFile() && file.exists()){ //判断文件是否存在
                 InputStreamReader read = new InputStreamReader(new FileInputStream(file),encoding);//考虑到编码格式
