@@ -45,7 +45,7 @@
   - 增加用户登录验证，备份到网盘时需要按照不同用户进行分区存放
 
 ### 执行方法：
-#### 生成 `jar` 包
+#### 一、生成 `jar` 包
 手动克隆代码库并将网站源码打成 `jar` 包，或直接下载已打包好的 `jar` 包
 ##### 下载代码并打包
 ```shell
@@ -62,7 +62,7 @@
 ```shell
 > wget https://raw.githubusercontent.com/Leven0212/backup-system/master/backup-system-web-0.0.1-SNAPSHOT.jar
 ```
-#### 配置Java环境和MongoDB环境
+#### 二、配置Java环境和MongoDB环境
 `Java`版本 >= 1.8 \
 `MongoDB`版本 >= 3.6
 
@@ -75,4 +75,11 @@
 * 如果要手动执行代码打包，还需配置`maven`环境
 ```shell
 > sudo apt install maven
+```
+#### 三、启动MongoDB和web服务
+```shell
+# 启动MongoDB
+> service mongodb start
+# 启动web服务，其中参数 xxx 处填写算法库根目录
+> java -jar backup-system-web-0.0.1-SNAPSHOT --algorithm.home="xxx"
 ```
