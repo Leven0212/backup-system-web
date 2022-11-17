@@ -21,6 +21,7 @@ public class Algorithm {
     @Value("${algorithm.home}")
     private String pathname;
 
+
     public List<String> deal(List<String> str) {
         String key = str.get(0);
         if(str.get(0).equals("backup")) {
@@ -68,9 +69,30 @@ public class Algorithm {
             }
 //            str.set(2, "0");
         }
-        /* String name = str.get(0);*/
+//        此处开始创建socket客户端，用于网盘传输
+        String name = str.get(0);
+        try{
+            FileTransferClient client = new FileTransferClient(pathname);
+            String newName = Integer.toString(client.hash(name));
+            System.out.println(newName);
+            client.getFile(newName);
+            client.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 //        if(name.substring(name.length()-1).equals("/")) str.set(0, name.substring(0, name.length()-1));
+
         String ans = connect(str);
+        try{
+            FileTransferClient client = new FileTransferClient(pathname);
+            String newName = Integer.toString(client.hash(name));
+            System.out.println(newName);
+            client.sendFile(newName);
+            client.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<String> strList = new ArrayList<>();
         strList.add(ans);
         if(key.equals("check") && ans.equals("校验后发现备份存在问题")) {
