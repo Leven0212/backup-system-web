@@ -185,4 +185,18 @@ public class Controller {
         attr.addFlashAttribute("key", key);
         return "redirect:/thread";
     }
+
+    @PostMapping("/display")
+    public String display(Model map) {
+        List<List<String>> files = judge.GetAll();
+//        List<String> name = new ArrayList<>();
+//        List<String> method = new ArrayList<>();
+//        for(int i = 0; i < files.size(); i++) {
+//            name.add(files.get(i).get(0));
+//            method.add(files.get(i).get(1));
+//        }
+        map.addAttribute("files", files);
+//        map.addAttribute("methods", method);
+        return "display";
+    }
 }
